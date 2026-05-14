@@ -4,22 +4,33 @@ A simple and responsive task management web application built using **HTML, CSS,
 It helps users organize daily tasks efficiently with an easy-to-use interface.
 
 ## 🚀 Live Demo
+
 https://to-do-app-gamma-dun.vercel.app/
 
+## 📸 Screenshots
+
+![Main UI - light](./assets/to-do-app-light.png)
+![Main UI - dark](./assets/to-do-app-dark.png)
+
 ## ✨ Features
-- ➕ Add new tasks  
-- 🗑️ Delete tasks  
-- ✅ Mark tasks as completed  
-- 🔍 Filter tasks  
+
+- ➕ Add new tasks
+- 🗑️ Delete tasks
+- ✅ Mark tasks as completed
+- 🔍 Filter tasks
 - 📱 Responsive design for mobile and desktop
 
 ## 🛠️ Tech Stack
-- HTML5  
-- CSS3  
-- JavaScript(ES6)  
+
+- HTML5
+- CSS3
+- JavaScript(ES6)
 - Vercel(Deployment)
 
 ## ▶️ How to Run Locally
+
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/sasamir10/to-do-app.git
+```
