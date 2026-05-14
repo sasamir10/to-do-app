@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Taskly - Dashboard</title>
+        <!-- css link -->
+        <link rel="stylesheet" href="style.css" />
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="to-do-list.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <!-- Display Font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Body Font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-mark">✦</div>
+                <span class="logo-text" id="logoTypeText"></span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <p class="nav-label">Views</p>
+                <button class="nav-item active" data-filter="all">
+                    <!-- prettier-ignore -->
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <rect
+                            x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"
+                        />
+                        <rect 
+                            x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" 
+                        />
+                        <rect
+                            x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"
+                        />
+                        <rect
+                            x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"
+                        />
+                    </svg>
+                    All Tasks
+                    <span class="nav-badge" id="navAllCount">0</span>
+                </button>
+                <button class="nav-item" data-filter="active">
+                    <!-- prettier-ignore -->
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle
+                            cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"
+                        />
+                        <path
+                            d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        />
+                    </svg>
+                    Active
+                    <span class="nav-badge" id="navActiveCount">0</span>
+                </button>
+                <button class="nav-item" data-filter="completed">
+                    <!-- prettier-ignore -->
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        />
+                    </svg>
+                    Completed
+                    <span class="nav-badge" id="navDoneCount">0</span>
+                </button>
+            </nav>
+
+            <nav class="sidebar-nav">
+                <p class="nav-label">Categories</p>
+                <button class="nav-item cat-nav" data-cat="work">
+                    <span class="cat-dot" data-color="work"></span>Work
+                    <span class="nav-badge" id="navWorkCount">0</span>
+                </button>
+                <button class="nav-item cat-nav" data-cat="study">
+                    <span class="cat-dot" data-color="study"></span>Study
+                    <span class="nav-badge" id="navStudyCount">0</span>
+                </button>
+                <button class="nav-item cat-nav" data-cat="health">
+                    <span class="cat-dot" data-color="health"></span>Health
+                    <span class="nav-badge" id="navHealthCount">0</span>
+                </button>
+                <button class="nav-item cat-nav" data-cat="personal">
+                    <span class="cat-dot" data-color="personal"></span>Personal
+                    <span class="nav-badge" id="navPersonalCount">0</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <!-- prettier-ignore -->
+                <button class="theme-toggle" id="themeBtn">
+                    <svg
+                        class="sun-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    >
+                        <circle
+                            cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"
+                        />
+                        <path
+                            d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        />
+                    </svg>
+                    <svg
+                        class="moon-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" style="display: none"
+                    >
+                        <path
+                            d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2"
+                        />
+                    </svg>
+                    <span class="theme-label">Light Mode</span>
+                </button>
+                <button class="clear-done-btn" id="clearCompletedBtn">
+                    <!-- prettier-ignore -->
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        />
+                    </svg>
+                    Clear Completed
+                </button>
+            </div>
+        </aside>
+        <!-- Sidebar Closed -->
+
+        <!-- Main -->
+        <main class="main">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="hamburger" id="hamburger" aria-label="Menu">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <div>
+                        <h1 class="greeting">What's up!</h1>
+                        <p class="today-date" id="todayDate"></p>
+                    </div>
+                </div>
+                <!-- prettier-ignore -->
+                <div class="topbar-right">
+                    <div class="search-wrap">
+                        <svg
+                            width="15" height="15" viewBox="0 0 18 18" fill="none"
+                        >
+                            <circle
+                                cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="2"
+                            />
+                            <path
+                                d="M12 12L16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            />
+                        </svg>
+                        <span class="search-float-hint">Search tasks</span>
+                        <input
+                            type="text" id="searchInput" placeholder="" autocomplete="off"
+                        />
+                    </div>
+
+                    <button class="new-task-btn" id="fabBtn">
+                        <svg
+                            width="13" height="13" viewBox="0 0 22 22" fill="none"
+                        >
+                            <path
+                                d="M11 1v20M1 11h20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Stats Strip -->
+            <section class="stats-strip">
+                <div class="stat-card" data-statcat="work">
+                    <div class="stat-top">
+                        <span class="stat-emoji">💼</span>
+                        <span class="stat-pct" id="pctWork">0%</span>
+                    </div>
+                    <div class="stat-num" id="statWork">
+                        0 <small>tasks</small>
+                    </div>
+                    <div class="stat-label">Work</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="barWork"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card" data-statcat="study">
+                    <div class="stat-top">
+                        <span class="stat-emoji">📚</span>
+                        <span class="stat-pct" id="pctStudy">0%</span>
+                    </div>
+                    <div class="stat-num" id="statStudy">
+                        0 <small>tasks</small>
+                    </div>
+                    <div class="stat-label">Study</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="barStudy"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card" data-statcat="health">
+                    <div class="stat-top">
+                        <span class="stat-emoji">🏃</span>
+                        <span class="stat-pct" id="pctHealth">0%</span>
+                    </div>
+                    <div class="stat-num" id="statHealth">
+                        0 <small>tasks</small>
+                    </div>
+                    <div class="stat-label">Health</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="barHealth"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card" data-statcat="personal">
+                    <div class="stat-top">
+                        <span class="stat-emoji">🏠</span>
+                        <span class="stat-pct" id="pctPersonal">0%</span>
+                    </div>
+                    <div class="stat-num" id="statPersonal">
+                        0 <small>tasks</small>
+                    </div>
+                    <div class="stat-label">Personal</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="barPersonal"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tasks Section -->
+            <section class="tasks-section">
+                <div class="tasks-toolbar">
+                    <div class="toolbar-left">
+                        <h2 class="view-title" id="viewTitle">All Tasks</h2>
+                        <span class="count-pill" id="taskCounter">0</span>
+                    </div>
+                    <!-- prettier-ignore -->
+                    <div class="toolbar-right">
+                        <button
+                            class="view-btn active" id="btnGrid" title="Grid view"
+                        >
+                            <svg
+                                width="13" height="13" viewBox="0 0 16 16" fill="none"
+                            >
+                                <rect
+                                    x="1" y="1" width="5.5" height="5.5" rx="1" fill="currentColor"
+                                />
+                                <rect
+                                    x="9.5" y="1" width="5.5" height="5.5" rx="1" fill="currentColor"
+                                />
+                                <rect
+                                    x="1" y="9.5" width="5.5" height="5.5" rx="1" fill="currentColor"
+                                />
+                                <rect
+                                    x="9.5" y="9.5" width="5.5" height="5.5" rx="1" fill="currentColor"
+                                />
+                            </svg>
+                        </button>
+                        <button class="view-btn" id="btnList" title="List view">
+                            <svg
+                                width="13" height="13" viewBox="0 0 16 16" fill="none"
+                            >
+                                <rect
+                                    x="1" y="1.5" width="14" height="2" rx="1" fill="currentColor"
+                                />
+                                <rect
+                                    x="1" y="7" width="14" height="2" rx="1" fill="currentColor"
+                                />
+                                <rect
+                                    x="1" y="12.5" width="14" height="2" rx="1" fill="currentColor"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="task-grid" id="taskGrid"></div>
+
+                <div class="empty-state" id="emptyState" style="display: none">
+                    <div class="empty-glyph">✦</div>
+                    <h3>Nothing here yet</h3>
+                    <p>Add a task to get started</p>
+                    <button id="emptyAddBtn">+ New Task</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Mobile FAB -->
+        <button
+            class="mobile-fab"
+            id="mobileFab"
+            title="New Task"
+            aria-label="New Task"
+        >
+            <!-- prettier-ignore -->
+            <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
+                <path
+                    d="M11 1v20M1 11h20" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                />
+            </svg>
+        </button>
+
+        <!-- Sidebar overlay (mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Modal -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>New Task</h3>
+                    <!-- prettier-ignore -->
+                    <button class="modal-close" id="modalClose">
+                        <svg
+                            width="11" height="11" viewBox="0 0 12 12" fill="none"
+                        >
+                            <path
+                                d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            />
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label class="field-label">Task Name</label>
+                    <!-- prettier-ignore -->
+                    <input
+                        type="text" id="taskInput" placeholder="What needs to be done?" maxlength="80" autocomplete="off"
+                    />
+                    <div class="char-hint">
+                        <span id="charCount">0</span>/80
+                    </div>
+
+                    <label class="field-label">Category</label>
+                    <div class="cat-options">
+                        <button class="cat-opt active" data-cat="work">
+                            💼 Work
+                        </button>
+                        <button class="cat-opt" data-cat="study">
+                            📚 Study
+                        </button>
+                        <button class="cat-opt" data-cat="health">
+                            🏃 Health
+                        </button>
+                        <button class="cat-opt" data-cat="personal">
+                            🏠 Personal
+                        </button>
+                    </div>
+
+                    <label class="field-label">Priority</label>
+                    <div class="pri-options">
+                        <button class="pri-opt" data-pri="low">🟢 Low</button>
+                        <button class="pri-opt active" data-pri="medium">
+                            🟡 Medium
+                        </button>
+                        <button class="pri-opt" data-pri="high">🔴 High</button>
+                    </div>
+
+                    <button class="submit-btn" id="addTaskBtn">Add Task</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

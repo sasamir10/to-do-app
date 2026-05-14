@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taskly – What's up, Joy!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="phone-wrap">
+
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <button class="icon-btn" id="menuBtn" aria-label="Menu">
+          <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+            <rect width="22" height="2.5" rx="1.25" fill="currentColor"/>
+            <rect y="6.75" width="14" height="2.5" rx="1.25" fill="currentColor"/>
+            <rect y="13.5" width="22" height="2.5" rx="1.25" fill="currentColor"/>
+          </svg>
+        </button>
+        <div class="top-actions">
+          <button class="icon-btn" id="searchBtn" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <circle cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 12L16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="icon-btn notif-btn" id="themeBtn" aria-label="Toggle theme">
+            <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Greeting -->
+      <section class="greeting">
+        <h1>What's up, <span class="name">Joy!</span></h1>
+      </section>
+
+      <!-- Search Bar (hidden by default) -->
+      <div class="search-bar" id="searchBar">
+        <input type="text" id="searchInput" placeholder="Search tasks…" autocomplete="off" />
+        <button class="clear-search" id="clearSearch">✕</button>
+      </div>
+
+      <!-- Categories -->
+      <section class="section">
+        <h2 class="section-label">CATEGORIES</h2>
+        <div class="categories-grid">
+          <div class="category-card" data-category="business">
+            <span class="cat-count" id="businessCount">0 tasks</span>
+            <span class="cat-name">Business</span>
+            <div class="cat-bar">
+              <div class="cat-progress business-bar" id="businessProgress"></div>
+            </div>
+          </div>
+          <div class="category-card" data-category="personal">
+            <span class="cat-count" id="personalCount">0 tasks</span>
+            <span class="cat-name">Personal</span>
+            <div class="cat-bar">
+              <div class="cat-progress personal-bar" id="personalProgress"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        <button class="tab active" data-filter="all">All</button>
+        <button class="tab" data-filter="active">Active</button>
+        <button class="tab" data-filter="completed">Completed</button>
+      </div>
+
+      <!-- Today's Tasks -->
+      <section class="section tasks-section">
+        <div class="tasks-header">
+          <h2 class="section-label">TODAY'S TASKS</h2>
+          <span class="task-counter" id="taskCounter">0 left</span>
+        </div>
+
+        <div class="task-list" id="taskList">
+          <!-- Tasks injected by JS -->
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display:none">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="var(--accent-pink)" stroke-width="2" stroke-dasharray="5 4"/>
+            <path d="M16 24l6 6 10-12" stroke="var(--accent-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>No tasks here yet!</p>
+        </div>
+
+        <!-- Clear completed -->
+        <button class="clear-btn" id="clearCompletedBtn">Clear completed</button>
+      </section>
+
+      <!-- Add Task FAB -->
+      <button class="fab" id="fabBtn" aria-label="Add task">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M11 1v20M1 11h20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Task Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3>New Task</h3>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="taskInput" placeholder="What needs to be done?" maxlength="80" autocomplete="off" />
+        <div class="modal-options">
+          <label class="option-label">Category</label>
+          <div class="category-choice">
+            <button class="cat-btn active" data-cat="business">💼 Business</button>
+            <button class="cat-btn" data-cat="personal">🏠 Personal</button>
+          </div>
+        </div>
+        <div class="char-count"><span id="charCount">0</span>/80</div>
+        <button class="add-btn" id="addTaskBtn">Add Task</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
